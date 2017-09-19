@@ -9,9 +9,12 @@ print 'ax^2 + bx + c = 0'
 def quadraticEquation():
     while True:
         #requesting user input:
-        a = input('Please insert your a')
-        b = input('Please insert your b')
-        c = input('Please insert your c')
+        #a = input('Please insert your a')
+        #b = input('Please insert your b')
+        #c = input('Please insert your c')
+        #a, b, c = input("Please insert (a, b, c):")
+        a, b, c = input("Please enter the coefficients (a, b, c): ")
+
         x = b ** 2 - 4 * a * c
 
         if x < 0:
