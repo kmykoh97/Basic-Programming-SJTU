@@ -18,7 +18,6 @@ def numbersReassignment():
                 x[i], x[i+1] = x[i+1], x[i]
             else:
                 initialCount += 1
-                
     print 'After sorting, the assending arrangement is:', x
 
 #numbersReassignment()
@@ -30,7 +29,6 @@ def efficientNumbersReassignment():
         for j in range(len(x)-1-i):
             if x[j] > x[j+1]:
                 x[j], x[j+1] = x[j+1], x[j]
-
     print 'After sorting, the assending arrangement is:', x
 
 def efficientNumbersReassignment2():
