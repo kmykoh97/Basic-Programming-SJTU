@@ -4,10 +4,11 @@
 #2017-09-21
 
 def fibonacciSequence():
-    x = input('Please enter any whole number greater than 1')
-    initialValue = 2
-    answer = 
-    for 
+    x = input('Please enter any whole number greater than 0:')
+    value = [1, 1]
+    for i in range(x-2):
+        value.append(value[i] + value[i+1])
+    print value
+    print 'The',x , 'th fibonacci number is', value[x-1]
 
-
-
+fibonacciSequence()

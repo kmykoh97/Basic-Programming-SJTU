@@ -1,4 +1,3 @@
-
 #The Gregorian Epact is the number of days between Jan. 1st and the previous 1st quarter moon phase. This value is used to ﬁgure out the date of Easter. It is calculated by these formulas (using int arithmetic): 
 #The Gregorian Epact Project
 #Created by MyKoh
