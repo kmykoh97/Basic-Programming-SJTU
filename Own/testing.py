@@ -9,3 +9,5 @@ print math.e
 print math.sin(60)
 
 #2
+x = '10224'
+print x[0:-1]
