@@ -20,9 +20,6 @@ def numbersReassignment():
                 initialCount += 1
     print 'After sorting, the assending arrangement is:', x
 
-#numbersReassignment()
-print 'Have a good day'
-
 #Below are more efficient codes to do the exact same thing
 def efficientNumbersReassignment():
     for i in range(len(x)-1):
@@ -37,4 +34,8 @@ def efficientNumbersReassignment2():
             if x[i] > x[j]:
                 x[i], x[j] = x[j], x[i]
     print 'After sorting, the assending arrangement is:', x
+
+print 'Have a good day'
+
+efficientNumbersReassignment2()
 
