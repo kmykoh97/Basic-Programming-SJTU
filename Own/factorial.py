@@ -4,9 +4,9 @@
 
 print 'This a a program to find factorial'
 def factorial():
-    n = input('Please insert a whole number.')
+    n = input('Please insert a whole number:')
     x = 1L #Use a long integer here
-    for i in range(2, n):
+    for i in range(2, n+1):
         x *= i
     print 'Factorial of', n, 'is', x
 
