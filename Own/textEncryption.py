@@ -66,9 +66,6 @@ def textToNumberConversion():
             result.append(int(character) + 30)
     print result
 
-
-
-
 #To encrypt to ASCII codes
 def textTOASCII():
     print "This program converts a textual message into a ASCII sequence"
