@@ -1,6 +1,6 @@
-#
-#
-#
+#Text Encryption Project
+#Created by MyKoh
+#2017-09-24
 
 words = raw_input("Please enter words in small letter you wish to encrypt")
 
