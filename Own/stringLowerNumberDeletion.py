@@ -11,6 +11,3 @@ def stringLowerNumberDeletion():
     print userInsert.lower()
 
 stringLowerNumberDeletion()
-            
-        
-
