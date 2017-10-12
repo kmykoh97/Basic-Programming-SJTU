@@ -11,3 +11,6 @@ print math.sin(60)
 #2
 x = '10224'
 print x[0:-1]
+
+x= 6646
+print list(x)
