@@ -2,6 +2,7 @@
 #Created by MyKoh
 #2017-10-13
 
+#wrong piece of code
 def main():
     x = raw_input('Please insert:')
     for i in range(len(x)):
