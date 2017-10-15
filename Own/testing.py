@@ -12,5 +12,18 @@ print math.sin(60)
 x = '10224'
 print x[0:-1]
 
-x= 6646
+#3
+x= '6646'
 print list(x)
+
+#4
+x = 'iloveu'
+if x in 'oveue':
+    print 'yes'
+else:
+    print 'no'
+
+#5
+x=4
+for i in range(x):
+    print 'scscs'
