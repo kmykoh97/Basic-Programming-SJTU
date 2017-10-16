@@ -1,3 +1,6 @@
+#Coins Return Changes Calculation Program
+#Created by MyKoh
+#2017-10-17
 
 def main():
     x = float(input('Please insert the price < $1: '))
