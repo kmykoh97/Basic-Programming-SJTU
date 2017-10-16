@@ -8,6 +8,7 @@ def nameToNumber():
     a = []
     result = 0
     name = name.lower()
+    name = name.replace(' ', '')
     for i in name:
         a.append(ord(i)-96)
     #print a
