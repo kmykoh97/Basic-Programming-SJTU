@@ -1,4 +1,7 @@
 
+#Project to change letters to numbers and add them
+#Created by MyKoh
+#2017-10-16
 
 def nameToNumber():
     name = raw_input('Please insert your name:')
