@@ -18,4 +18,10 @@ def main():
 
     print primeList
 
+    result = 0
+    for k in primeList:
+        result += k
+
+    print 'The total value is', result
+
 main()
