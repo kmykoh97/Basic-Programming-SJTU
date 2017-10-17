@@ -3,6 +3,11 @@
 #2017-10-18
 
 def main():
-    for range
+    result = 0
+    for i in range(1, 1001):
+        if i % 3 == 0 and i % 5 != 0:
+            result += i
+
+    print 'The total is', result
 
 main()
