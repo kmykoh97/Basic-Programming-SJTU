@@ -7,6 +7,13 @@
 #pi/4 = (-1)**n/(2*n-1)
 
 def pi():
+    n = 1
+    piDivideFour = 0
+    while 1/(2*n-1) - 1/(2*(n+1)-1) > 0.00001:
+        piDivideFour += (-1)**(n+1)/(2*n-1)
+        n += 1
 
+    print piDivideFour
+    print piDivideFour * 4
 
 pi()
