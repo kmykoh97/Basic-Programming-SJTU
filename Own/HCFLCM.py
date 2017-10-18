@@ -5,7 +5,7 @@
 #Input: Integer a, b, c
 #Output: HCF, LCM of a, b, c
 
-def LCM():
+def LCM(a,b,c):
     #a, b, c = input('Please insert 3 numbers saparated by ,:')
     truthValue = True
     multipleA, multipleB, multipleC = 1, 1, 1
@@ -32,7 +32,7 @@ def LCM():
 
 #LCM()
 
-def HCF():
+def HCF(a,b,c):
     #a, b, c = input('Please insert 3 numbers saparated by ,:')
     listA = []
     listB = []
@@ -68,7 +68,8 @@ def HCF():
 
 def main():
     a, b, c = input('Please insert 3 numbers saparated by ,:')
-    LCM()
-    HCF()
+    LCM(a,b,c)
+    HCF(a,b,c)
+    print 'This code is very complicated. Have fun studying XD'
 
 main()
