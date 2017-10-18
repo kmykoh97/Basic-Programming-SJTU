@@ -23,10 +23,8 @@ def LCM(a,b,c):
         if newA - newB == 0 and newA - newC == 0:
             truthValue = False
 
-    
-
     print 'LCM is', str(newA)
-        
+
    #alternative LCM: use lower number in that 3 and add 1 by 1 and if x % y== 0, lcm 
    #alternative: 3x for loops
 
@@ -66,6 +64,7 @@ def HCF(a,b,c):
 
 #HCF()
 
+#control function
 def main():
     a, b, c = input('Please insert 3 numbers saparated by ,:')
     LCM(a,b,c)
