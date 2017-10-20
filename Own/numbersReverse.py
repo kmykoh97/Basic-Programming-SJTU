@@ -1,3 +1,7 @@
+#Program to reverse numbers entered in list
+##Created by MyKoh
+#2017-10-20
+
 def main():
     oldList = []
     newList = []
