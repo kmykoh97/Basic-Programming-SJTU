@@ -12,7 +12,7 @@ def main():
         primeTF = True
         for j in range(2, i):
             if i%j == 0:
-                Tf = False
+                primeTF = False
         if primeTF:
             primeList.append(i)
 
