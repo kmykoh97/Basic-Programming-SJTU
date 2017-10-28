@@ -2,32 +2,50 @@
 #Created by MyKoh
 #2017-10-26
 
-x = input('Year:')
+def leapYear(y):
+    count = 0
+    for i in range(1, y):
+        if i%4 == 0 and (i%100 != 0 or i%400 == 0):
+            count += 1
+    return count
+        
+def daysBeforeY(y):
+    numberOfDays = (y-1) * 365 + leapYear(y)
+    #print numberOfDays
+    return numberOfDays
 
-def leapYear():
-    if x % 4 != 0 or :
-        daysPerYear = 365
-    else:
-        daysPerYear = 366
+def firstDayInY(y):
+    endOfLastYear = daysBeforeY(y) % 7
+    firstDayOfY = endOfLastYear + 1
+    if firstDayOfY == 7:
+        firstDayOfY = 0
+    return firstDayOfY
 
-def calendar():
-    monday = 1
-    tuesday = 2
-    wednesday = 3
-    thursday = 4
-    friday = 5
-    saturday = 6
-    sunday = 7
-    totalDays = 0
-    for i in range(1, x-1):
-        if i % 4 != 0:
-            daysPerYear = 365
+def frame(y, n):
+    nNew = n - 1
+    print
+    print "=========== " + str(y) + " =========== "
+    months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+    noOfDaysPerMonth = [31,28,31,30,31,30,31,31,30,31,30,31]
+    for i in range(12):
+        print "       %s       " % (months[i])
+        print "Mon Tue Wed Thu Fri Sat Sun"
+        if y%4 == 0 and (y%100 != 0 or y%400 == 0):
+            noOfDaysPerMonth[1] = 29
         else:
-            daysPerYear = 366
-        totalDays += daysPerYear
-    print totalDays % 7
+            noOfDaysPerMonth[1] = 28
+        for j in range(1, noOfDaysPerMonth[i]+1):
+            print nNew * " " + "%3s" % (j),
+            if (nNew+j+1)%7 == 0:
+                print
+        print
 
-calendar()
+def main():
+    y = input('Please insert year:')
+    n = firstDayInY(y)
+    frame(y, n)
+
+frame(2017,3)
 
 #sample
 def main():		
@@ -95,4 +113,3 @@ def printMonth(frame):
 		print "%3s" % (frame[i]), 
 		if (i+1)%7 == 0:
 			print
-main()
