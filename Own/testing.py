@@ -27,3 +27,7 @@ else:
 x=4
 for i in range(x):
     print 'Hello'
+
+#6
+for i in range(-10):
+    print 'k'
