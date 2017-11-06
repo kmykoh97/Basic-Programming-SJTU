@@ -44,13 +44,6 @@ time.day()
 time.printTime()
 
 
-
-
-
-
-
-
-
 #Using function
 def main():
     x = raw_input('Please insert country:')
