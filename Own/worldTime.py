@@ -19,20 +19,19 @@ class worldTime:
         elif self.hour > 24:
             print 'It is the next day'
             self.hour -= 24
-        print "%s is %d.%d.%d now" % (str(x), self.hour, self.minutes, self.seconds)
+        print "%s is %d.%d.%d now" % (x, self.hour, self.minutes, self.seconds)
 
 print "Please input Beijing time in 24-hour format"
 print
 a = input("Please insert hour in Beijing now:")
-b = input('Please insert minutes in Beijing now:')
-c = input('Please insert seconds in Beijing now:')
+b = input("Please insert minutes in Beijing now:")
+c = input("Please insert seconds in Beijing now:")
 london = worldTime(0,a,b,c)
 japan = worldTime(9,a,b,c)
 italy = worldTime(1,a,b,c)
 german = worldTime(1,a,b,c)
 newyork = worldTime(5,a,b,c)
 x = input('Insert your country:')
-
 x.timeConversion()
 
 #Using function
