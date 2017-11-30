@@ -31,9 +31,8 @@ def human():
     score = 0
     for i in cardList:
         score += cardValue(i)
-    y = 0
-    while score > 21 and y <= len(cardList)-1:
         y = 0
+    while score > 21 and y <= (len(cardList)-1):
         if cardList[y] == 'A':
             score -= 10
         y += 1
@@ -77,6 +76,8 @@ def main():
             print 'Congratulations, player wins'
         elif player == dealer:
             print 'This game is a draw'
+        else:
+            print 'Player lost...'
         a = raw_input('Do you want to play another game? (y or n)')
         if a != 'y':
             break
