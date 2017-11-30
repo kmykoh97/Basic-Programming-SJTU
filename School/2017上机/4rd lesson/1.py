@@ -5,17 +5,16 @@
 from random import *
 
 def main():
-    n = 9999#input("Please insert number of throws:")
-    squareSidesLength = 2#input("Please insert sides' length of square:")
-    x = squareSidesLength * random() - squareSidesLength/2.0
-    y = squareSidesLength * random() - squareSidesLength/2.0
-    numberOfThrows = n * 1.0
-    h = 0
-    while numberOfThrows > 0:
-        if x**2 + y**2 <= (squareSidesLength/2.0)**2:
+    n = input("Please insert number of throws:")
+    squareSidesLength = input("Please insert sides length of square:")
+    radius = squareSidesLength / 2.0
+    numberOfThrows, h = n * 1.0, 0
+    while n > 0:# loop started until finish try
+        x, y = ((radius + 1) * random()) - 1, ((radius + 1) * random()) - 1
+        if (x**2 + y**2) <= (radius**2):
             h += 1
-        numberOfThrows -= 1
-    piValue = 4.0 * h / n
+        n -= 1
+    piValue = (4.0 * h) / numberOfThrows
     print "Pi estimated value is:", piValue
 
 main()

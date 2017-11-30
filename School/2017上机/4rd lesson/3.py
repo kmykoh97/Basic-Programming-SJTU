@@ -4,11 +4,13 @@
 
 import random
 
+# Function to distribute cards evenly:
 def getCard():
     cardList = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
     card = cardList[random.randint(0,12)]
     return card
 
+# Function to count points associated for each card('A' is initially counted as 11 points):
 def cardValue(x):
     if x=='2' or x=='3' or x=='4' or x=='5' or x=='6' or x=='7' or x=='8' or x=='9' or x=='10':
         return int(x)
@@ -17,8 +19,10 @@ def cardValue(x):
     else:
         return 11
 
+# Testing:
 # print cardValue('5')
 
+# Function to play as human player:
 def human():
     cardList = [getCard(), getCard()]
     question = 'y'
@@ -39,8 +43,10 @@ def human():
 
     return score
 
-# print player()
+# Testing:
+# print human()
 
+# Function to play as computer(bot):
 def bot():
     cardList = [getCard()]
     score = 0
@@ -57,10 +63,13 @@ def bot():
 
     return score
 
+# Testing:
 # print bot()
 
 def main():
+    # Introduction:
     print 'Hi, this is a game of BlackJack...Enjoy'
+    # While loop to run main algorithm:
     while True:
         print "Dealer's turn to draw card..."
         dealer = bot()

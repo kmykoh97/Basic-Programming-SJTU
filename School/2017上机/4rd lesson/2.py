@@ -15,15 +15,14 @@ def secondDice():
     return second
 
 def winOrLose():
-    totalPoints1 = int(firstDice() + secondDice()) # This is p
-
+    totalPoints1 = firstDice() + secondDice() # This is p
     if totalPoints1 == 2 or totalPoints1 == 3 or totalPoints1 == 12:
         return False
     elif totalPoints1 == 7 or totalPoints1 == 11:
         return True
     else:
         while True:
-            totalPoints2 = int(firstDice() + secondDice()) # Rethrow dices
+            totalPoints2 = firstDice() + secondDice() # Rethrow dices
             if totalPoints2 == 7:
                 return False
             if totalPoints2 == totalPoints1:
