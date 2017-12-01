@@ -69,6 +69,7 @@ def bot():
 def main():
     # Introduction:
     print 'Hi, this is a game of BlackJack...Enjoy'
+    print 'I am a very arrogant bot. If your cards explode, you have to continue to play with me. You can only choose to leave game if u play with me fairly without exploding. And I think u are weak. I will just allow u to look at my card.'
     # While loop to run main algorithm:
     while True:
         print "Dealer's turn to draw card..."
