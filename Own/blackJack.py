@@ -1,3 +1,7 @@
+#Black Jack Card Game
+#Created by MyKoh
+#2017-12-2
+
 # A redo of blackjack game using class
 
 from random import *
@@ -29,11 +33,11 @@ class blackJack:
         else:
             return 11
 
-    def winCondition(self):
-        if dealer > 21 or player1 > dealer:
+    def winCondition(self, x, y):
+        if y > 21 or x > y:
             return 1
-        elif player1 == dealer:
-            return 2
+        elif x == y:
+            return 'kmy so handsome'
         else:
             return 0
 
@@ -42,7 +46,7 @@ class blackJack:
         while score < 17:
             score = 0
             self.getCard(self.botList)
-            print "Bot now have:", len(self.botList) * 'X'
+            print "Dealer now have:", len(self.botList) * 'X'
             for i in self.botList:
                 score += self.cardValue(i)
             if score > 21:
@@ -70,25 +74,28 @@ class blackJack:
         return score
 
     def gameStart(self):
-        self.initialShuffleAndDistribute()
-        print 'Your turn to draw card...'
-        player1 = self.player()
-        print "Dealer's turn to draw card..."
-        dealer = self.bot()
-        print "Dealer's card:", self.botList
-        if self.winCondition() == 0:
-            print 'Player lost...'
-        elif self.winCondition() == 1:
-            print 'Congratulations, player wins'
-        else:
-            print "This game is a draw. Let's have another game XD"
-
-
-        self.winCondition()
+        while True:
+            self.initialShuffleAndDistribute()
+            print 'Your turn to draw card...'
+            player1 = self.player()
+            print "Dealer's turn to draw card..."
+            dealer = self.bot()
+            print "Dealer's card:", self.botList
+            if self.winCondition(player1, dealer) == 0:
+                print 'Player lost...'
+            elif self.winCondition(player1, dealer) == 1:
+                print 'Congratulations, player wins'
+            else:
+                print "This game is a draw. Let's have another game XD"
+            self.botList = []
+            self.playerList = []
+            answer = raw_input("Do you want to play another game? (y or n)")
+            if answer == 'n' or answer == 'N': break
 
 def main():
     x = input('please insert number of card deck to use:')
     firstPlayer = blackJack(x)
     firstPlayer.gameStart()
+    print 'Thank you for playing this game. Hope you enjoyed it'
 
 main()
