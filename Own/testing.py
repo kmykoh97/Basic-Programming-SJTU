@@ -13,3 +13,6 @@
 # print 'a'>9999
 # print 0%1
 # print range(-4,3)
+
+x = [1,2,2,2,1,3,4,5,6,7,1]
+print max(x)
