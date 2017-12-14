@@ -47,8 +47,7 @@ def lowestValue(x,y):
         if y == i: continue
         elif x[y] <= x[i]:
             minimum = x[y]
-        else:
-            return lowestValue(x, y+1)
+        else: return lowestValue(x, y+1)
     return minimum
 
 def minimum(listInput):
