@@ -2,6 +2,7 @@
 # Meng Yit Koh
 # 517030990022
 
+# return greatest value in list x
 def greatestValue(x,y):
     # x is list y is index
     for i in range(len(x)):
@@ -12,6 +13,7 @@ def greatestValue(x,y):
             return greatestValue(x, y+1)
     return maximum
 
+# return lowest value in list x
 def lowestValue(x,y):
     # x is list y is index
     for i in range(len(x)):
@@ -23,14 +25,17 @@ def lowestValue(x,y):
     return minimum
 
 def main():
+    # list can be changed here
     listInput = [1,2,3,4,5,5]
     if len(listInput) == 1:
         min, max = listInput[0]
     elif len(listInput) == 2:
         if listInput[0] > listInput[1]:
             min, max = listInput[1], listInput[0]
+        else: max, min = listInput[1], listInput[0]
     else:
         max, min = greatestValue(listInput, 0), lowestValue(listInput, 0)
+    print listInput
     print 'Minimum:', min, 'Maximum:', max
 
 main()
