@@ -22,7 +22,7 @@ def fs(x):
 
 def main():
     nthFibonacci = input('Please insert the nth term of fibonacci number you want to find:')
-    print fs(nthFibonacci)
+    print "the %dth term is:" % (nthFibonacci), fs(nthFibonacci)
     print fsList(nthFibonacci)
 
 def fsList(x):
