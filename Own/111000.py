@@ -4,14 +4,10 @@
 
 #Meng Yit's way
 def main1():
-    x = raw_input("Please input a series of number")
-   
-    c=0
-
+    x = raw_input("Please input a series of numbers(0&1):")
+    c = 0
     for i in range(len(x)):
-        a = 1
-        b = 1
-        d = 1
+        a, b, d = 1, 1, 1
         while i+d <= len(x)-1 and x[i] == x[i+d]:
             a += 1
             d += 1
@@ -26,7 +22,7 @@ def main1():
 
 #Zhicheng's way
 def main2():
-    x = raw_input("Please input a series of number:")
+    x = raw_input("Please input a series of numbers(0&1):")
     c = 0
     l = []
 
