@@ -11,4 +11,17 @@ def fibonacciSequence():
     print value
     print 'The',x , 'th fibonacci number is', value[x-1]
 
-fibonacciSequence()
+# fibonacciSequence()
+
+# efficient codes
+def fs(x):
+    if x == 1 or x == 2:
+        return 1
+    else:
+        return fs(x-1) + fs(x-2)
+
+def main():
+    nthFibonacci = input('Please insert the nth term of fibonacci number you want to find:')
+    print fs(nthFibonacci)
+
+main()
