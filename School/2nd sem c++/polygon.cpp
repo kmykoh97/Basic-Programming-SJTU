@@ -1,5 +1,4 @@
 #include<iostream>
-// #include<>
 #include<list>
 
 using namespace std;
@@ -11,6 +10,7 @@ double gradient (double x1, double y1, double x2, double y2)
   // cout << m << endl;
   //
   // return m;
+  
   return (y2-y1)/(x2-x1);
 }
 
@@ -33,9 +33,8 @@ int main ()
 {
   bool q, w, e, r;
   // double co[][2] = {{0,0},{1,4},{2,2},{3,1}};
-  int hi[] = {1,2,3};
   double co[][2] = {{0,0},{1,3},{2,3},{2,1}};
-  cout << hi.size() << endl;
+  // cout << hi.size() << endl;
   // double r = gradient(co[0][0], co[0][1], co[1][0], co[1][1]);
   q = determine(co[0][0], co[0][1], co[1][0], co[1][1], co[2][0], co[2][1], co[3][0], co[3][1]);
   w = determine(co[3][0], co[3][1], co[0][0], co[0][1], co[1][0], co[1][1], co[2][0], co[2][1]);
@@ -51,7 +50,8 @@ int main ()
   //   int z2 = ++z1;
   //   int z3 = ++z2;
   //   int
-  }
 
   return 0;
 }
+
+  
