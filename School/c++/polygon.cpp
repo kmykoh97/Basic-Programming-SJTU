@@ -51,6 +51,7 @@ int main ()
   //   int z3 = ++z2;
   //   int
 
+  system("pause");
   return 0;
 }
 
