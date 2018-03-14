@@ -11,7 +11,8 @@
                 "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include",
                 "D:/program file/LLVM/include",
                 "D:/program file/LLVM/x86_64-w64-mingw32/include",
-                "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include-fixed"
+                "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include-fixed",
+                "${workspaceRoot}"
             ],
             "defines": [
                 "_DEBUG",
