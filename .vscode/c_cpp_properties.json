@@ -22,14 +22,15 @@
             ],
             "browse": {
                 "path": [
-                    "${workspaceFolder}",
-                    "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++",
-                    "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++/x86_64-w64-mingw32",
-                    "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++/backward",
-                    "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include",
-                    "D:/program file/LLVM/include",
-                    "D:/program file/LLVM/x86_64-w64-mingw32/include",
-                    "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include-fixed"
+                "${workspaceFolder}",
+                "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++",
+                "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++/x86_64-w64-mingw32",
+                "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include/c++/backward",
+                "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include",
+                "D:/program file/LLVM/include",
+                "D:/program file/LLVM/x86_64-w64-mingw32/include",
+                "D:/program file/LLVM/lib/gcc/x86_64-w64-mingw32/7.2.0/include-fixed",
+                "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
