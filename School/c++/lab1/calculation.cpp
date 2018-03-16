@@ -1,4 +1,4 @@
-#include "calculatorHeader.h"
+#include "calculatorHeader.hpp"
 
 // check for brackets or return values
 double primary()

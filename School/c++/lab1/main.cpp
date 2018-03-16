@@ -1,4 +1,5 @@
-#include "calculatorHeader.h"
+#include <iostream>
+#include "calculatorHeader.hpp"
 
 int main()
 {
@@ -17,7 +18,7 @@ int main()
         answer = expression();
     }
 
-    system("pause"); // to view result
+    // system("pause"); // to view result
 
     return 0;
 }

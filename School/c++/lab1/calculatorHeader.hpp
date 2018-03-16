@@ -1,12 +1,15 @@
+#ifndef CALCULATORHEADER_H_INCLUDED
+#define CALCULATORHEADER_H_INCLUDED
+
 #include <iostream>
-#include<string>
+#include <string>
+#include <cstdlib>
 
 using namespace std;
 
 // make a new type of token
-class token
+struct token
 {
-    public:
     char kind; // store the type of token
     double value; // store the value of token if the kind is a number
 };
@@ -30,3 +33,5 @@ double term();
 double expression();
 
 extern tokenStream ts;
+
+#endif
