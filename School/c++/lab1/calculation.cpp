@@ -1,4 +1,4 @@
-#include "calculatorHeader.hpp"
+#include "calculatorHeader.h"
 
 // check for brackets or return values
 double primary()
@@ -72,7 +72,8 @@ double expression()
                 left -= term();
                 break;
             default:
-                // ts.putBack(t);  // if no '+' or '-' sign, put the token to buffer in class tokenStream() to access later
+                /* if putBack not called, need 2x ';' to show result */
+                ts.putBack(t);  // if no '+' or '-' sign, put the token to buffer in class tokenStream() to access later
                 return left;
         }
     }
