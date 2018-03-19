@@ -1,24 +1,26 @@
+/* Calculator by Meng Yit Koh
+517030990022
+Shanghai Jiao Tong University */
+
 #include <iostream>
 #include <cmath>
 #include <string>
 
 using namespace std;
 
-// do some definitions here
+// do some definitions and declarations here
 void calculate();
 double expression();
 bool decimalsDetermine(double x);
 double term();
 double primary();
-int factorial(int a);
-void cleanUp();
+double factorial(double a);
 void error(string info);
 const char number = '8';
 const char quit = 'q';
 const char print = ';';
 const string prompt = "> ";
 const string result = "= ";
-int main();
 
 // make a new type of token
 struct token
@@ -32,7 +34,7 @@ class tokenStream
 {
     public:
       token get(); // get a token from expression if there is nothing in buffer. Else,
-      void restart();
+      void restart(); // to restart the main() when called
       void putBack(token t); // place a token to buffer
 
     private:
@@ -40,17 +42,19 @@ class tokenStream
       token buffer; // allocate a memmory to store unused and returned token
 };
 
-tokenStream ts;
+tokenStream ts; // class declaration
 
-// error type
-class badToken{
-};
+// empty error type to be caught by main()
+class badToken{};
+
+// empty class to be caught to exit program
+class exitProgram{};
 
 // error handling
 void error(string info)
 {
-    cerr << info << endl;
-    throw badToken{};
+    cerr << info << endl; // print errors
+    throw badToken{}; // throwing exception
 }
 
 
@@ -59,7 +63,7 @@ void error(string info)
 void tokenStream::putBack(token t)
 {
     if (full) {
-        error("putBack into full buffer");
+        error("error"); // putBack into full buffer
     }
 
     buffer = t;
@@ -95,21 +99,28 @@ token tokenStream::get()
                 return token{number, value}; // return a token with suitable attributes
             }
         default:
-            error("invalid token");
+            error("error"); // invalid token
     }
 }
 
+// define restart method here
 void tokenStream::restart()
 {
-    string temp;
-    getline(cin, temp);
-    if (temp.empty()) {
-        return;
+    string temp; // string declaration
+
+    // to read newline and ignore them
+    while (true) {
+        if (cin.get() == '\n') {
+            return;
+        }
     }
+
+    // to read remaining strings and ignore them
     cin >> temp;
+    ts.full = false;
 }
 
-// check for brackets or return values
+// check for brackets, do positive/negative, factorial in some cases or return values
 double primary()
 {
     token t = ts.get(); // get the next token
@@ -120,7 +131,7 @@ double primary()
                 double insideBracket = expression();
                 t = ts.get();
                 if (t.kind != ')') {
-                    error("no close bracket found");
+                    error("error"); // no close bracket found
                 }
                 return insideBracket;
             }
@@ -128,27 +139,26 @@ double primary()
             {
                 double temp = t.value;
                 t = ts.get();
-                if (t.kind == '!') {
-                    temp = factorial((int) temp);
+                if (t.kind == '!') { // do factorial when there are multiple brackets
+                    temp = factorial(temp);
                 } else {
                     ts.putBack(t);
                 }
                 return temp;
             }
-        case '-':
+        case '-': // negative case
             return -primary();
-        case '+':
+        case '+': // positive case
             return primary();
         default: // in case of special symbols found
-            error("special symbols not allowed");
+            error("error"); // special symbols not allowed
     }
-
-    // return t.value;
 }
 
+// function to determine if a number has decimal points
 bool decimalsDetermine(double x)
 {
-    int copier = x;
+    int copier = x; // copy the double x
 
     if (copier == x) {
         return false; // no decimal points
@@ -164,7 +174,7 @@ double term()
 
     // keep doing multiplications and divisions until no '*' and '/' left
     while (true) {
-        token t = ts.get();
+        token t = ts.get(); // get the next token
 
         switch (t.kind) {
             case '*':
@@ -174,7 +184,7 @@ double term()
                 {
                     double temp = primary();
 			        if (temp == 0.0) {
-                        error("zero error");
+                        error("error"); // zero error
                     }
 			        left /= temp;
 			        break;
@@ -183,13 +193,12 @@ double term()
                 {
                     double temp = primary();
                     if (temp == 0) {
-                        error("zero error");
+                        error("error"); // zero error
                     }
                     if (decimalsDetermine(temp) || decimalsDetermine(left)) {
-                        error("cannot be decimal points");
+                        error("error"); // cannot be decimal points
                     }
-                    left = fmod(left, temp);
-                    // t = ts.get();
+                    left = fmod(left, temp); // peforming modulus
                     break;
                 }
             default: 
@@ -208,7 +217,7 @@ double expression()
 
     // keep doing additions and substractions until no '+' and '-' left
     while (true) {
-        token t = ts.get();
+        token t = ts.get(); // get the next token
 
         switch (t.kind) {
             case '+':
@@ -218,11 +227,10 @@ double expression()
                 left -= term();
                 break;
             case '!':
-                return factorial((int)left);
+                return factorial(left);
             default:
                 /* if putBack not called, need 2x ';' to show result */
                 ts.putBack(t); // if no '+' or '-' sign, put the token to buffer in class tokenStream() to access later
-                // return primary();
                 return left;
         }
     }
@@ -230,52 +238,54 @@ double expression()
     return left; // return result
 }
 
+// function to do calculations
 void calculate()
 {
     while (cin) {
-        try {
-            cout << prompt;
-            token t = ts.get();
-            while (t.kind == print) {
-                t = ts.get(); // eats ';'
-            }
-            if (t.kind == quit) {
-                return;
-            }
-            ts.putBack(t);
-            cout << result << expression() << endl;
+        cout << prompt; // marker
+        token t = ts.get(); // get the next token
+        while (t.kind == print) {
+            t = ts.get(); // eats repeated ';'
         }
-
-        catch (exception& e) {
-            cerr << e.what() << endl;
+        if (t.kind == quit) {
+            throw exitProgram{};
         }
+        ts.putBack(t);
+        cout << result << expression() << endl; // to show result
     }
 }
 
-int factorial (int a)
+
+// function to perform factorial '!'
+double factorial (double a)
 {
-    if (a < 0) {
-        error("cannot be negative factorial");
-    }
-    if (a == 1 || a == 0) {
+    if (decimalsDetermine(a)) { // error if factorial is a decimal
+        error("error"); // factorial cannot has decimals
+    } else if (a < 0) { // error if factorial is negative number
+        error("error"); // factorial cannot be negative
+    } else if (a == 1 || a == 0) {
         return 1;
     }
     
-    return a * factorial(a-1);
+    return a * factorial(a-1); // recursive way to get factorial
 }
 
-// main execution
 int main()
 {
     try {
-        calculate();
+        calculate(); // do main calculation
     }
 
+    // catch all errors returned by function error()
     catch (badToken) {
-        ts.restart();
-        main();
+        ts.restart(); // clear unwanted memories
+        main(); // restart when error catched
     }
 
-    system("pause");
-    return 0;
+    catch (exitProgram) {
+        return 0; // indicating success
+    }
+
+    system("pause"); // to show result
+    return 0; // indicating success
 }
