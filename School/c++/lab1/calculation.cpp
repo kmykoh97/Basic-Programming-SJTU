@@ -1,27 +1,38 @@
 #include "calculatorHeader.h"
 
-// check for brackets or return values
+// check for brackets, do positive/negative, factorial in some cases or return values
 double primary()
 {
     token t = ts.get(); // get the next token
 
     switch (t.kind) {
-        case '(': // perform operations inside bracket
+        case '(': case ')': // perform operations inside bracket
             {
                 double insideBracket = expression();
                 t = ts.get();
                 if (t.kind != ')') {
-                    error("no close bracket found");
+                    error("error"); // no close bracket found
                 }
                 return insideBracket;
             }
-        case '8': // in case of number found
-            return t.value;
+        case number: // in case of number found
+            {
+                double temp = t.value;
+                t = ts.get();
+                if (t.kind == '!') { // do factorial when there are multiple brackets
+                    temp = factorial(temp);
+                } else {
+                    ts.putBack(t);
+                }
+                return temp;
+            }
+        case '-': // negative case
+            return -primary();
+        case '+': // positive case
+            return primary();
         default: // in case of special symbols found
-            error("primary expected");
+            error("error"); // special symbols not allowed
     }
-
-    // return t.value;
 }
 
 // perform multiplication and division. Perform primary()
@@ -31,21 +42,33 @@ double term()
 
     // keep doing multiplications and divisions until no '*' and '/' left
     while (true) {
-        token t = ts.get();
+        token t = ts.get(); // get the next token
 
         switch (t.kind) {
             case '*':
                 left *= primary();
                 break;
             case '/':
-            {
-                if (primary() == 0) {
-                    error("zero error");
-                } else {
-                    left /= primary();
-                } break;
-            }
-                break;
+                {
+                    double temp = primary();
+			        if (temp == 0.0) {
+                        error("error"); // zero error
+                    }
+			        left /= temp;
+			        break;
+                }
+            case '%':
+                {
+                    double temp = primary();
+                    if (temp == 0) {
+                        error("error"); // zero error
+                    }
+                    if (decimalsDetermine(temp) || decimalsDetermine(left)) {
+                        error("error"); // cannot be decimal points
+                    }
+                    left = fmod(left, temp); // peforming modulus
+                    break;
+                }
             default: 
                 ts.putBack(t); // if no '*' or '/' sign, put the token to buffer in class tokenStream() to access later
                 return left;
@@ -62,7 +85,7 @@ double expression()
 
     // keep doing additions and substractions until no '+' and '-' left
     while (true) {
-        token t = ts.get();
+        token t = ts.get(); // get the next token
 
         switch (t.kind) {
             case '+':
@@ -71,12 +94,28 @@ double expression()
             case '-':
                 left -= term();
                 break;
+            case '!':
+                return factorial(left);
             default:
                 /* if putBack not called, need 2x ';' to show result */
-                ts.putBack(t);  // if no '+' or '-' sign, put the token to buffer in class tokenStream() to access later
+                ts.putBack(t); // if no '+' or '-' sign, put the token to buffer in class tokenStream() to access later
                 return left;
         }
     }
 
     return left; // return result
+}
+
+// function to perform factorial '!'
+double factorial (double a)
+{
+    if (decimalsDetermine(a)) { // error if factorial is a decimal
+        error("error"); // factorial cannot has decimals
+    } else if (a < 0) { // error if factorial is negative number
+        error("error"); // factorial cannot be negative
+    } else if (a == 1 || a == 0) {
+        return 1;
+    }
+    
+    return a * factorial(a-1); // recursive way to get factorial
 }

@@ -5,22 +5,26 @@ Shanghai Jiao Tong University */
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
 // do some definitions and declarations here
-void calculate();
-double expression();
-bool decimalsDetermine(double x);
-double term();
-double primary();
-double factorial(double a);
-void error(string info);
+const string prompt = "> ";
+const string result = "= ";
 const char number = '8';
 const char quit = 'q';
 const char print = ';';
-const string prompt = "> ";
-const string result = "= ";
+
+double primary();
+double term();
+double expression();
+double factorial(double a);
+bool decimalsDetermine(double a);
+void error(string info);
+void calculate();
+
+double ANS = 0; // to store ANS
 
 // make a new type of token
 struct token
@@ -28,6 +32,9 @@ struct token
     char kind; // store the type of token
     double value; // store the value of token if the kind is a number
 };
+
+// empty error type to be caught by main()
+struct badToken{};
 
 // make a new class to get, return or store returned token
 class tokenStream
@@ -41,34 +48,6 @@ class tokenStream
       bool full {false}; // determine whether the buffer has been filled
       token buffer; // allocate a memmory to store unused and returned token
 };
-
-tokenStream ts; // class declaration
-
-// empty error type to be caught by main()
-class badToken{};
-
-// empty class to be caught to exit program
-class exitProgram{};
-
-// error handling
-void error(string info)
-{
-    cerr << info << endl; // print errors
-    throw badToken{}; // throwing exception
-}
-
-
-
-// define putBack method here
-void tokenStream::putBack(token t)
-{
-    if (full) {
-        error("error"); // putBack into full buffer
-    }
-
-    buffer = t;
-    full = true;
-}
 
 // define get method here
 token tokenStream::get()
@@ -98,6 +77,22 @@ token tokenStream::get()
                 cin >> value; // get complete double from cin
                 return token{number, value}; // return a token with suitable attributes
             }
+        case 'A':
+            {
+                cin.putback(temp);
+                string ANSTest;
+                cin >> setw(3) >> ANSTest;
+                if (ANSTest == "ANS") {
+                    return token{number, ANS};
+                }
+                // if (ANSTest.substr(0,3) == "ANS") {
+
+                //     (ANSTest.substr(3, ANSTest.length()));
+                //     cin.putback(after);
+                //     return token{number, ANS};
+                // }
+                error("error"); // invalid token
+            }
         default:
             error("error"); // invalid token
     }
@@ -117,8 +112,21 @@ void tokenStream::restart()
 
     // to read remaining strings and ignore them
     cin >> temp;
-    ts.full = false;
+    this->full = false;
 }
+
+// define putBack method here
+void tokenStream::putBack(token t)
+{
+    if (full) {
+        error("error"); // putBack into full buffer
+    }
+
+    buffer = t;
+    full = true;
+}
+
+tokenStream ts; // class declaration
 
 // check for brackets, do positive/negative, factorial in some cases or return values
 double primary()
@@ -152,18 +160,6 @@ double primary()
             return primary();
         default: // in case of special symbols found
             error("error"); // special symbols not allowed
-    }
-}
-
-// function to determine if a number has decimal points
-bool decimalsDetermine(double x)
-{
-    int copier = x; // copy the double x
-
-    if (copier == x) {
-        return false; // no decimal points
-    } else {
-        return true; // has decimal points
     }
 }
 
@@ -238,24 +234,6 @@ double expression()
     return left; // return result
 }
 
-// function to do calculations
-void calculate()
-{
-    while (cin) {
-        cout << prompt; // marker
-        token t = ts.get(); // get the next token
-        while (t.kind == print) {
-            t = ts.get(); // eats repeated ';'
-        }
-        if (t.kind == quit) {
-            throw exitProgram{};
-        }
-        ts.putBack(t);
-        cout << result << expression() << endl; // to show result
-    }
-}
-
-
 // function to perform factorial '!'
 double factorial (double a)
 {
@@ -270,8 +248,47 @@ double factorial (double a)
     return a * factorial(a-1); // recursive way to get factorial
 }
 
+// function to determine if a number has decimal points
+bool decimalsDetermine(double a)
+{
+    int copier = a; // copy the double x
+
+    if (copier == a) {
+        return false; // no decimal points
+    } else {
+        return true; // has decimal points
+    }
+}
+
+// error handling
+void error(string info)
+{
+    cerr << info << endl; // print errors
+    throw badToken{}; // throwing exception
+}
+
+// function to do calculations
+void calculate()
+{
+    while (cin) {
+        cout << prompt; // marker
+        token t = ts.get(); // get the next token
+        while (t.kind == print) {
+            t = ts.get(); // eats repeated ';'
+        }
+        if (t.kind == quit) {
+            exit(0); // indicating success
+        }
+        ts.putBack(t);
+        ANS = expression();
+        cout << result << ANS << endl; // to show result
+    }
+}
+
 int main()
 {
+    // cout << "This is a command line calculator to do +-*/%!" << endl;
+
     try {
         calculate(); // do main calculation
     }
@@ -282,10 +299,10 @@ int main()
         main(); // restart when error catched
     }
 
-    catch (exitProgram) {
-        return 0; // indicating success
+    catch (...) {
+        exit(1); // indicating failure
     }
 
     system("pause"); // to show result
-    return 0; // indicating success
+    // return 0; // indicating success
 }

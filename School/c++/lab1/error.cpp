@@ -3,6 +3,6 @@
 // error handling
 void error(string info)
 {
-    cout << info << endl;
-    // cerr << info << endl;
+    cerr << info << endl; // print errors
+    throw badToken{}; // throwing exception
 }

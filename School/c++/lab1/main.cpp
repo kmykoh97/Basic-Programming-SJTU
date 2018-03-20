@@ -1,24 +1,25 @@
-#include <iostream>
-#include "calculatorHeader.hpp"
+#include "calculatorHeader.h"
+
+double ANS = 0; // to store ANS
 
 int main()
 {
-    double answer = 0;
-    while (cin) {
-        token t = ts.get();
-        if (t.kind == 'q') {
-            break;
-        } else if (t.kind == ';') {
-            cout << answer << endl;
-            break;
-        } else {
-            ts.putBack(t);
-        }
+    // cout << "This is a command line calculator to do +-*/%!" << endl;
 
-        answer = expression();
+    try {
+        calculate(); // do main calculation
     }
 
-    // system("pause"); // to view result
+    // catch all errors returned by function error()
+    catch (badToken) {
+        ts.restart(); // clear unwanted memories
+        main(); // restart when error catched
+    }
 
-    return 0;
+    catch (...) {
+        exit(1); // indicating failure
+    }
+
+    system("pause"); // to show result
+    // return 0; // indicating success
 }

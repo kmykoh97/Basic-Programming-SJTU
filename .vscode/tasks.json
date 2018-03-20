@@ -10,13 +10,16 @@
             "args": [
                 "-g",
                 "${file}",
-                "-o", // 指定输出文件名，不加该参数则默认输出a.exe
+                "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.exe"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }
