@@ -1,0 +1,19 @@
+Maximum Product of three number (必答题)
+
+问题描述：
+1.    Given a series of number which end with a character ‘e’, findthree numbers whose product is maximum and output the maximum product.
+
+Example 1:
+
+Input:  1 2 3 e
+Output: 6
+Example 2:
+
+Input: 1 -2 3 -4 e
+Output: 24
+
+
+last 3
+last 1 first 2
+
+

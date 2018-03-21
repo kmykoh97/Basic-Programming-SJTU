@@ -32,7 +32,7 @@ token tokenStream::get()
             {
                 cin.putback(temp);
                 string ANSTest;
-                cin >> setw(3) >> ANSTest;
+                cin >> setw(3) >> ANSTest; // to make sure system only reads 3 alphabet of string
                 if (ANSTest == "ANS") {
                     return token{number, ANS};
                 }

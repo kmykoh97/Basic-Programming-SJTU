@@ -1,5 +1,5 @@
-#ifndef CALCULATORHEADER_H_INCLUDED
-#define CALCULATORHEADER_H_INCLUDED
+#ifndef HEADER_H_INCLUDED
+#define HEADER_H_INCLUDED
 
 #include <iostream>
 #include <cmath>

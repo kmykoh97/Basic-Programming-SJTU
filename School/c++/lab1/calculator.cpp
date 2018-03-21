@@ -85,12 +85,6 @@ token tokenStream::get()
                 if (ANSTest == "ANS") {
                     return token{number, ANS};
                 }
-                // if (ANSTest.substr(0,3) == "ANS") {
-
-                //     (ANSTest.substr(3, ANSTest.length()));
-                //     cin.putback(after);
-                //     return token{number, ANS};
-                // }
                 error("error"); // invalid token
             }
         default:

@@ -1,5 +1,12 @@
 #include "header.h"
 
+// error handling
+void error(string info)
+{
+    cerr << info << endl; // print errors
+    throw badToken{}; // throwing exception
+}
+
 // function to determine if a number has decimal points
 bool decimalsDetermine(double a)
 {

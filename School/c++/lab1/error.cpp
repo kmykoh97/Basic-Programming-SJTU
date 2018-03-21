@@ -1,4 +1,4 @@
-#include"calculatorHeader.h"
+#include "header.h"
 
 // error handling
 void error(string info)

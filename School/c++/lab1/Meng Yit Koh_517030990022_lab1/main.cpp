@@ -1,3 +1,7 @@
+/* Calculator by Meng Yit Koh
+517030990022
+Shanghai Jiao Tong University */
+
 #include "header.h"
 
 double ANS = 0; // to store ANS
