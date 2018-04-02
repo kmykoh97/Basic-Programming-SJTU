@@ -1,6 +1,6 @@
 #include<iostream>
 #include<string>
-#include<cctype> // use isalpha() and isdigit for constructor
+#include<cctype> // use isalpha() and isdigit() for constructor
 
 using namespace std;
 
