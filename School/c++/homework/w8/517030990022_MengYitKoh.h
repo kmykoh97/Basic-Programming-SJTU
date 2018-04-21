@@ -1,5 +1,36 @@
-#include "header.h"
+#include <iostream>
 
+using namespace std;
+
+// ----------------METHOD DECLARATIONS------------------
+// structure for each node in linked list
+struct Node
+{
+    int value;
+    Node* next;
+    Node(int v) : value(v), next(NULL) {} // constructor
+};
+
+class List
+{
+    public:
+    List(int* arr, int array_size); // constructor
+    List(); // second constructor
+    int length() const;
+    bool insert(int pos, int value);
+    int find(int pos, int value);
+    int remove(int value);
+    bool split(int pos, List& new_list);
+    void combine(List& append_list);
+    void print();   
+    ~List(); // destructor
+
+    private:
+    Node* head; // head of list
+    int size; // current length
+};
+
+// ----------------METHOD IMPLEMENTATION------------------
 // constructor
 List::List(int* arr, int array_size)
 {
@@ -115,7 +146,7 @@ int List::remove(int value)
     while (temp != NULL) {
         if (temp -> value == value) {
             prev -> next = temp -> next;
-            free(temp);
+            free(temp); // free memory
             prev = prev -> next;
             temp = prev -> next;
             count++;

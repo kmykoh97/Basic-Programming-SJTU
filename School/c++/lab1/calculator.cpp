@@ -106,7 +106,7 @@ void tokenStream::restart()
 
     // to read remaining strings and ignore them
     cin >> temp;
-    this->full = false;
+    full = false;
 }
 
 // define putBack method here
