@@ -53,10 +53,7 @@
                 "C:/MinGW/lib/gcc/mingw32/6.3.0/include/c++/backward",
                 "C:/MinGW/lib/gcc/mingw32/6.3.0/include",
                 "C:/MinGW/include",
-                "C:/MinGW/lib/gcc/mingw32/6.3.0/include-fixed",
-                "${workspaceRoot}/School/c++/lab1",
-                "C:/fltk-1.3.2",
-                "C:/fltk-1.3.2/FL"
+                "C:/MinGW/lib/gcc/mingw32/6.3.0/include-fixed"
             ],
             "defines": [
                 "_DEBUG",
@@ -72,9 +69,7 @@
                     "C:/MinGW/lib/gcc/mingw32/6.3.0/include/c++",
                     "C:/MinGW/lib/gcc/mingw32/6.3.0/include",
                     "C:/MinGW/lib/gcc/mingw32/6.3.0/include-fixed",
-                    "C:/MinGW/include/*",
-                    "C:/fltk-1.3.2",
-                    "C:/fltk-1.3.2/FL"
+                    "C:/MinGW/include/*"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
