@@ -14,5 +14,8 @@
 
 
 
-If using g++ compiler, run:  
-> g++ main.cpp calculation.cpp tokenStream.cpp extra.cpp error.cpp -o calculator.exe
+If using g++ compiler, run:
+> g++ main.cpp calculation.cpp tokenStream.cpp extra.cpp -o calculator.exe
+
+If using MakeFile, run:
+> make
