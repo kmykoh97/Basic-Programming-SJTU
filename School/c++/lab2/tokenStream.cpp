@@ -1,4 +1,4 @@
-#include "header.h"
+#include "calculator.h"
 
 // define get method here
 token tokenStream::get()

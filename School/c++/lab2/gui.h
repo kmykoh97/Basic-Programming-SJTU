@@ -5,10 +5,9 @@
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Window.H>
-#include <FL/Fl_Box.H>
 #include <sstream>
 #include <string>
-#include "header.h"
+#include "calculator.h"
 
 using namespace std;
 
@@ -16,17 +15,22 @@ class gui
 {
     public:
     
-    // some constants for buttons' and window size
-    // const unsigned int WIN_BACKGROUND = 53U;
+    // some constants for buttons' and windows' size
 	static const int SPACE = 10;
-	static const int BTN_LEN = 40;
-	static const int BTN_WID = 30;
+	static const int bLength = 40;
+	static const int bWidth = 30;
+	static const Fl_Color bc = FL_WHITE;
+	Fl_Color bc1 = fl_rgb_color(238, 154, 176);
+	Fl_Color bc2 = fl_rgb_color(244, 241, 251);
+	Fl_Color bc3 = fl_rgb_color(185, 245, 180);
+	Fl_Color bc4 = fl_rgb_color(250, 202, 180);
+	
 	
 	// constructor and destructor
 	gui();
 	~gui();
 	
-	// to show the calculator window
+	// method to show the calculator window
 	void show();
 
     private:
@@ -35,8 +39,6 @@ class gui
 	Fl_Window *mainWindow;
 	Fl_Output *outputWindow;
 	Fl_Output *inputWindow;
-	
-	// widgets------------------------------------------------------------
 	
 	// buttons
 	Fl_Button *b0; // 0
@@ -60,47 +62,17 @@ class gui
 	Fl_Button *bLeft; // (
 	Fl_Button *bRight; // )
 	Fl_Button *bANS; // ANS
-	
-	/* delete
-	// Fl_Button *bAbs; // |
-	// Fl_Button *bRemainder; // %
-	// Fl_Button *ButtonBck; //
-	*/
-	
-	/* try delete
-	// window box
-	Fl_Box *box;
-	*/
-	
-	/*delete
-	// Fl_Radio_Round_Button *SimRatio;
-	// Fl_Radio_Round_Button *LineRatio;
-	*/
-	
-	// widgets------------------------------------------------------------
-
-	/*try to delete
-	gui& operator=(const gui&);
-	gui(const gui&);
-	*/
-	
-	// callback functions------------------------------------------------------------
+	Fl_Button *bDel; // DEL
+	Fl_Button *bRemainder; // %
 	
 	// callbacks
 	static void bNum_call(Fl_Widget *w, void *data); // integers
 	static void bEqual_call(Fl_Widget *w, void *data); // =
 	static void bClear_call(Fl_Widget *w, void *data); // CE
-	static void bExpression_call(Fl_Widget *w, void *data); // +-*/!()
-	static void bANS_call(Fl_Widget *w, void *data);
-	
-	/*delete
-	// static void BtnSigNDel0_Click(Fl_Widget *w, void *data);//运算符（不消去默认的0），在单步计算模式直接得到结果
-	// static void BtnBck_Click(Fl_Widget *w, void *data); // <-
-	static void RatioSim_Click(Fl_Widget *w, void *data);//step mode
-	static void RatioLine_Click(Fl_Widget *w, void *data);//line mode
-	*/
-	
-	// callback functions------------------------------------------------------------
+	static void bExpression_call(Fl_Widget *w, void *data);// +-*/!()
+	static void bANS_call(Fl_Widget *w, void *data); // ANS
+	static void bDel_call(Fl_Widget *w, void *data); // DEL
+	static void bRemainder_call(Fl_Widget *w, void *data); // %
 };
 
 #endif

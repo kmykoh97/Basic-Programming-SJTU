@@ -1,4 +1,4 @@
-#include "header.h"
+#include "calculator.h"
 
 // declare a global variable
 stringstream ssexp;

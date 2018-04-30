@@ -1,4 +1,4 @@
-#include "header.h"
+#include "calculator.h"
 
 // check for brackets, do positive/negative, factorial in some cases or return values
 double primary()

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -6,29 +7,48 @@ template <typename T>
 struct Node
 {
     T value;
-    Node* next;
+    Node *next;
     Node(T v) : value(v), next(NULL) {} // constructor
 };
 
 template <typename T>
 class Stack
 {
-    Node<T>* head;
-    T size;
+    private:
+    Node<T> *head;
+    int size;
 
     public:
-    Stack() : head(NULL) {} // empty constructor
+    Stack(); // empty constructor
     Stack(const Stack&) = delete;
     Stack& operator=(const Stack&) = delete;
+    ~Stack();
     void push(T elem);
-    bool pop(T& cell);
+    bool pop(/*T& cell*/);
     void print();
 };
 
 template <typename T>
-void Stack::push (T elem)
+Stack<T>::Stack()
 {
-    T* smartPointer = elem;
+    head = NULL;
+    size = 0;
+}
+
+template <typename T>
+Stack<T>::~Stack()
+{
+    while (!isEmpty()) {
+        pop();
+    }
+}
+
+
+
+template <typename T>
+void Stack<T>::push (T elem)
+{
+    Node<T>* smartPointer = new Node<T>(elem);
 
     if (head == NULL) {
         head = smartPointer;
@@ -36,10 +56,12 @@ void Stack::push (T elem)
         smartPointer -> next = head;
         head = smartPointer;
     }
+
+    size++;
 }
 
 template <typename T>
-bool Stack::pop (T& cell)
+bool Stack<T>::pop (/*T& cell*/)
 {
     if (size > 0) {
         head = head -> next;
@@ -49,8 +71,13 @@ bool Stack::pop (T& cell)
     }
 }
 
+bool isEmpty()
+{
+    return (size == 0);
+}
+
 template <typename T>
-void Stack::print() const {
+void Stack<T>::print() {
     for (T* temp = head; temp != nullptr; temp = temp -> next)
         cout << temp -> value << '\n';
 }
