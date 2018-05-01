@@ -1,6 +1,9 @@
+#ifndef STACK_H
+#define STACK_H
+
 #include <iostream>
-#include <string>
 #include <memory>
+// #include <string> // uncomment to use string type
 
 using namespace std;
 
@@ -20,13 +23,14 @@ class Stack
 
     public:
     Stack() : head(NULL) {} // empty constructor
-    Stack(const Stack<T>&) = delete;
-    Stack& operator=(const Stack<T>&) = delete;
+    Stack(const Stack<T>&) = delete; // prevent copying
+    Stack& operator=(const Stack<T>&) = delete; // prevent reassigning
     void push(T elem); // to push elem to stack
     bool pop(T& cell); // to remove item from stack and give the value to cell
     // void print() const; // to print items
 };
 
+// methods implementation
 template <typename T>
 void Stack<T>::push (T elem)
 {
@@ -53,7 +57,7 @@ bool Stack<T>::pop (T& cell)
     return true;
 }
 
-// method to print items in stack
+// method to print items in stack (uncomment to use)
 /*
 template <typename T>
 void Stack<T>::print() const
@@ -63,3 +67,5 @@ void Stack<T>::print() const
     }
 }
 */
+
+#endif
