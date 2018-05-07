@@ -10,3 +10,4 @@ index:
 [Week6: koch algorithm, gui(FLTK)](https://github.com/kmykoh97/SJTU/tree/master/School/c%2B%2B/homework/w6/)  
 [Week8: linked list](https://github.com/kmykoh97/SJTU/tree/master/School/c%2B%2B/homework/w8/) 
 [Week9: Stack](https://github.com/kmykoh97/SJTU/tree/master/School/c%2B%2B/homework/w9/)  
+[Week10: Priority Queue](https://github.com/kmykoh97/SJTU/tree/master/School/c%2B%2B/homework/w10/)  
