@@ -71,6 +71,12 @@ string ngramGenerator(int n, map<string, vector<string>>& wordMap)
 
     cout << "Insert number of words to generate: ";
     cin >> wordNumber;
+    // check if wordNumber is invalid
+    while (wordNumber < n) {
+        cout << "Number of words to display are too less!"
+        cin >> wordNumber;
+        cout << endl;
+    }
 
     // get random key and value pair from map
     auto item = wordMap.begin();

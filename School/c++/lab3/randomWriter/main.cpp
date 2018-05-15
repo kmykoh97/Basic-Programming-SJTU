@@ -14,6 +14,12 @@ int main()
     cout << "Please insert N: ";
     cin >> n;
     cout << endl;
+    // check if n is invalid. Reprompt if yes
+    while (n < 2) {
+        cout << "N cannot be 1 or negative!";
+        cin >> n;
+        cout << endl;
+    }
 
     getMap(wordMap, wordList, n);
     answer = ngramGenerator(n, wordMap);
