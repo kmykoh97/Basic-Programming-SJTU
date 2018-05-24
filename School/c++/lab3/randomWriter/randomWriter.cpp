@@ -73,7 +73,7 @@ string ngramGenerator(int n, map<string, vector<string>>& wordMap)
     cin >> wordNumber;
     // check if wordNumber is invalid
     while (wordNumber < n) {
-        cout << "Number of words to display are too less!"
+        cout << "Number of words to display are too less!";
         cin >> wordNumber;
         cout << endl;
     }
@@ -86,10 +86,12 @@ string ngramGenerator(int n, map<string, vector<string>>& wordMap)
 
     // push 2 words from key of wordMap into Queue
     ss << currentKey;
-    for (int i = 0; i < 2; i++) {
+    while (ss.good()) {
         string temp;
         ss >> temp;
-        Queue.push(temp);
+        if (temp != "") {
+            Queue.push(temp);
+        }
     }
 
     // alters Queue and takes new key-value from wordMap on every loop
