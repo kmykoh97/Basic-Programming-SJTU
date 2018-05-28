@@ -8,9 +8,20 @@ int main()
     stack<string> answer; // final answer stored in stack
 
     getDictionary(dictionary);
-    getWord(dictionary, word1, word2);
-    answer = ladderSolver(dictionary, word1, word2);
-    print(answer);
+    
+    // loop and exit condition
+    while (true) {
+        getWord(dictionary, word1, word2);
+
+        if (word1 == "N" || word2 == "N") {
+            break;
+        }
+
+        answer = ladderSolver(dictionary, word1, word2);
+        print(answer);
+    }
+
+    cout << "Have a nice day. ";
 
     system("pause");
     return 0;

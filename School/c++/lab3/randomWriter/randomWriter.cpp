@@ -10,16 +10,14 @@ void getPhrases(vector<string>& wordList)
     // open file
     cout << "Please insert file name: ";
     cin >> fileName;
-    cout << endl;
     fileOpener.open(fileName);
 
     // if file not opened, prompt again
     while (!fileOpener.is_open()) {
-        cout << "file does not exist!" << endl;
+        cout << "file does not exist!" << endl << endl;
         cout << "Please enter again: ";
         cin >> fileName;
         fileOpener.open(fileName);
-        cout << endl;
     }
 
     // get all the words and store in a vector container

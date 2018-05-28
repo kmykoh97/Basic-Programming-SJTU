@@ -7,18 +7,16 @@ void getDictionary(set<string>& dictionary)
     ifstream fileOpener;
 
     // doing initialisation
-    cout << "please insert dictionary file name: ";
+    cout << "Dictionary file name? ";
     cin >> fileName;
-    cout << endl;
     fileOpener.open(fileName);
 
     // if file not opened, prompt again
     while (!fileOpener.is_open()) {
-        cout << "file does not exist!" << endl;
-        cout << "Please enter again: ";
+        cout << "Unable to open that file. Try again. " << endl;
+        cout << "Dictionary file name? ";
         cin >> fileName;
         fileOpener.open(fileName);
-        cout << endl;
     }
 
     // insert words into dictionary set
@@ -32,23 +30,23 @@ void getDictionary(set<string>& dictionary)
 void getWord(set<string>& dictionary, string& word1, string& word2)
 {
     // requesting words
-    cout << "insert word no1: ";
+    cout << endl << "Word #1 (or N to quit): ";
     cin >> word1;
-
-    // check if dictionary has the word1. Reprompt is no
-    while (dictionary.count(word1) != 1) {
-        cout << endl << "word not found! Please re-enter: ";
-        cin >> word1;
-    }
-    
-    // check if dictionary has word2 and word1 has to be same length as word2. Reprompt if no
-    cout << endl << "insert word no2: ";
+    cout << "Word #2 (or N to quit): ";
     cin >> word2;
-    while (dictionary.count(word2) != 1 && word1.length() != word2.length()) {
-        cout << endl << "word not found or not same length! Please re-enter: ";
+
+    // check several conditions. Reprompt if not met
+    while (dictionary.count(word1) != 1 || dictionary.count(word2) != 1 || word1 == word2 || word1.size() != word2.size()) {
+        if (word1 == "N" || word2 == "N") {
+            break;
+        }
+        
+        cout << "The two words must be found in the dictionary, different and have same length. " << endl;
+        cout << endl << "Word #1 (or N to quit): ";
+        cin >> word1;
+        cout << "Word #2 (or N to quit): ";
         cin >> word2;
     }
-    cout << endl;
 }
 
 stack<string> ladderSolver(set<string>& dictionary, string& word1, string& word2)
@@ -101,4 +99,6 @@ void print(stack<string> S) // no reference used. So original stack will not aff
         cout << S.top() << " ";
         S.pop();
     }
+    
+    cout << endl;
 }
