@@ -118,7 +118,7 @@ void processLine(string line, Program & program, EvalState & state) {
                lineNumber = state.getCurrentLine();
            }
        } else if (token == "HELP") {
-            cout << "help" << endl;
+            cout << "Yet another basic interpreter" << endl;
        } else if (token == "CLEAR") {
            program.clear();
            state.destroy();
