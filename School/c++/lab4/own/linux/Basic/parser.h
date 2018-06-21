@@ -11,7 +11,11 @@
 #include "exp.h"
 
 #include "../StanfordCPPLib/tokenscanner.h"
+#include "statement.h"
 
+using namespace std;
+
+class Statement;
 /*
  * Function: parseExp
  * Usage: Expression *exp = parseExp(scanner);
@@ -52,6 +56,8 @@ Expression *readT(TokenScanner & scanner);
  * is not an operator, precedence returns 0.
  */
 
-int precedence(std::string token);
+int precedence(string token);
+
+Statement* parseStatement(TokenScanner& scanner);
 
 #endif

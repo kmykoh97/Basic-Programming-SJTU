@@ -22,14 +22,39 @@ EvalState::~EvalState() {
    /* Empty */
 }
 
+void EvalState::destroy()
+{
+    symbolTable.clear();
+}
+
 void EvalState::setValue(string var, int value) {
+    if (var == "IF" || var == "REM" || var == "PRINT" || var == "LET" || var == "GOTO" || var == "END" || var == "INPUT") {
+        cout << "SYNTAX ERROR" << endl;
+        return;
+    }
    symbolTable.put(var, value);
 }
 
 int EvalState::getValue(string var) {
+    // if (!symbolTable.containsKey(var)) {
+    //     cout << "VARIABLE NOT DEFINED" << endl;
+    // }
+
    return symbolTable.get(var);
 }
 
 bool EvalState::isDefined(string var) {
    return symbolTable.containsKey(var);
+}
+
+void EvalState::setCurrentLine(int lineNumber)
+{
+    string temp = "currentLineNumber";
+    return symbolTable.put(temp, lineNumber);
+}
+
+int EvalState::getCurrentLine()
+{
+    string temp = "currentLineNumber";
+    return symbolTable.get(temp);
 }

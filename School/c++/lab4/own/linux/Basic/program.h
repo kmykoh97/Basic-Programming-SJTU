@@ -10,6 +10,7 @@
 
 #include <string>
 #include "statement.h"
+#include "../StanfordCPPLib/map.h"
 using namespace std;
 
 /*
@@ -108,7 +109,7 @@ public:
  * Usage: Statement *stmt = program.getParsedStatement(lineNumber);
  * ----------------------------------------------------------------
  * Retrieves the parsed representation of the statement at the
- * specified line number.  If no value has been set, this method
+ * specified line number. If no value has been set, this method
  * returns NULL.
  */
 
@@ -134,6 +135,7 @@ public:
  */
 
    int getNextLineNumber(int lineNumber);
+   bool hasLineNumber(int lineNumber);
 
    struct Line // double linked list
    {

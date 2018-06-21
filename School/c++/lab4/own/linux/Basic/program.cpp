@@ -8,14 +8,15 @@
  * the performance guarantees specified in the assignment.
  */
 
-#include <string>
 #include "program.h"
+#include <string>
 #include "statement.h"
+#include "../StanfordCPPLib/map.h"
 using namespace std;
 
 Program::Program() {
-   first = new Line;
-   last = new Line;
+   first = new Line; // initiate a head
+   last = new Line; // initiate a tail
 
    first -> next = last;
    first -> previous = NULL;
@@ -30,7 +31,7 @@ Program::Program() {
 }
 
 Program::~Program() {
-   clear();
+   clear(); // delete everything
    delete first;
    delete last;
 }
@@ -65,25 +66,24 @@ void Program::addSourceLine(int lineNumber, string line) {
        temp -> content = line;
        temp -> lineNumber = lineNumber;
        temp -> statement = NULL;
-       if (first -> next == last) { // linked list is empty
+       lineMap.put(lineNumber, temp);
+       if (first -> next == last && last -> previous == first) { // linked list is empty
            temp -> next = last;
            temp -> previous = first;
            first -> next = temp;
            last -> previous = temp;
        } else { // linked list not empty
-           Line* temp2 = first -> next;
-           while (temp2 -> lineNumber < temp -> lineNumber && temp2 != last) {
-               temp2 = temp2 -> next;
+           Line* temp2 = last -> previous;
+           while (temp2 -> lineNumber > lineNumber && temp2 != first) {
+               temp2 = temp2 -> previous;
            }
            
            // do required pointing
            Line* temp3 = temp2 -> next;
-           temp2 -> next = temp;
-           temp -> previous = temp2;
            temp -> next = temp3;
+           temp -> previous = temp2;
            temp3 -> previous = temp;
-
-           lineMap.add(lineNumber, temp);
+           temp2 -> next = temp;
        }
    }
 }
@@ -93,7 +93,9 @@ void Program::removeSourceLine(int lineNumber) {
        Line* temp = lineMap.get(lineNumber);
        temp -> next -> previous = temp -> previous;
        temp -> previous -> next = temp -> next;
-       delete temp -> statement;
+	   if (temp->statement != NULL) {
+		   delete temp->statement;
+	   }
        delete temp;
        lineMap.remove(lineNumber);
    }
@@ -113,8 +115,9 @@ void Program::setParsedStatement(int lineNumber, Statement *stmt) {
        delete temp -> statement;
        temp -> statement = stmt;
    } else {
-       error();
+       cout << "SYNTAX ERROR" << endl;
    }
+}
 
 Statement *Program::getParsedStatement(int lineNumber) {
    if (lineMap.containsKey(lineNumber)) {
@@ -125,7 +128,7 @@ Statement *Program::getParsedStatement(int lineNumber) {
 }
 
 int Program::getFirstLineNumber() {
-   if (first -> next != last) {
+    if (first -> next != last) {
         return first -> next -> lineNumber;
     }
    
@@ -141,4 +144,8 @@ int Program::getNextLineNumber(int lineNumber) {
    }
    
    return -1;
+}
+
+bool Program::hasLineNumber(int lineNumber) {
+    return lineMap.containsKey(lineNumber);
 }

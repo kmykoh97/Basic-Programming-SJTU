@@ -12,8 +12,14 @@
 #ifndef _statement_h
 #define _statement_h
 
+#include <string>
 #include "evalstate.h"
 #include "exp.h"
+#include "parser.h"
+#include "../StanfordCPPLib/error.h"
+#include "../StanfordCPPLib/tokenscanner.h"
+#include "../StanfordCPPLib/simpio.h"
+#include "../StanfordCPPLib/strlib.h"
 
 /*
  * Class: Statement
@@ -75,14 +81,14 @@ public:
  * specify its own destructor method to free that memory.
  */
 
-class REM : public Statement
+class REM: public Statement
 {
   public:
   REM(TokenScanner& scanner);
   virtual void execute(EvalState& state);
 };
 
-class LET : public Statement
+class LET: public Statement
 {
   public:
   LET(TokenScanner& scanner);
@@ -94,7 +100,7 @@ class LET : public Statement
   Expression* rhs; // store rhs expression after '='
 };
 
-class PRINT : public Statement
+class PRINT: public Statement
 {
   public:
   PRINT(TokenScanner& scanner);
@@ -105,7 +111,7 @@ class PRINT : public Statement
   Expression* printStatement;
 };
 
-class INPUT : public Statement
+class INPUT: public Statement
 {
   public:
   INPUT(TokenScanner& scanner);
@@ -115,14 +121,14 @@ class INPUT : public Statement
   string variableName;
 };
 
-class END : public Statement
+class END: public Statement
 {
   public:
   END(TokenScanner& scanner);
   virtual void execute(EvalState& state);
 };
 
-class GOTO : public Statement
+class GOTO: public Statement
 {
   public:
   GOTO(TokenScanner& scanner);
@@ -132,7 +138,7 @@ class GOTO : public Statement
   int line;
 };
 
-class IF : public Statement
+class IF: public Statement
 {
   public:
   IF(TokenScanner& scanner);
@@ -145,5 +151,7 @@ class IF : public Statement
   string sign;
   int line;
 };
+
+bool is_number(const std::string& s);
 
 #endif

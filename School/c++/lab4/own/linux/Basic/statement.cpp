@@ -7,11 +7,23 @@
  * BASIC statements.
  */
 
-#include <string>
 #include "statement.h"
+#include <string>
+#include "evalstate.h"
+#include "exp.h"
+#include "parser.h"
+#include "../StanfordCPPLib/error.h"
+#include "../StanfordCPPLib/tokenscanner.h"
+
 using namespace std;
 
 /* Implementation of the Statement class */
+
+// cheack if the INPUT is valid integer
+bool is_number(const string& s)
+{
+    return s.find_first_not_of("0123456789-") == string::npos;
+}
 
 Statement::Statement() {
    /* Empty */
@@ -36,13 +48,13 @@ LET::LET(TokenScanner& scanner)
     variableName = scanner.nextToken(); // store variable name
     
     if (scanner.nextToken() != "=") {
-        error(); // wrong syntax
+        cout << "SYNTAX ERROR" << endl;
     }
 
     rhs = readE(scanner, 0); // create an expression parser tree
 
     if (scanner.hasMoreTokens()) {
-        error();
+        cout << "SYNTAX ERROR" << endl;
     }
 }
 
@@ -62,7 +74,7 @@ PRINT::PRINT(TokenScanner& scanner)
     printStatement = readE(scanner, 0); // create an expression parser tree
 
     if (scanner.hasMoreTokens()) {
-        error();
+        cout << "SYNTAX ERROR" << endl;
     }
 }
 
@@ -72,7 +84,7 @@ PRINT::~PRINT()
 }
 
 void PRINT::execute(EvalState& state)
-{
+{   
     cout << printStatement -> eval(state) << endl; // print the value
 }
 
@@ -81,13 +93,17 @@ INPUT::INPUT(TokenScanner& scanner)
     variableName = scanner.nextToken();
 
     if (scanner.hasMoreTokens()) {
-        error();
+        cout << "SYNTAX ERROR" << endl;
     }
 }
 
 void INPUT::execute(EvalState& state)
 {
-    string prompt = getLine("?");
+    string prompt = getLine(" ? ");
+    while (!is_number(prompt)) {
+        cout << "INVALID NUMBER" << endl;
+        prompt = getLine(" ? ");
+    }
     state.setValue(variableName, stringToInteger(prompt)); // getLine can only get string so need to convert to integer
 }
 
@@ -98,7 +114,7 @@ END::END(TokenScanner& scanner)
 
 void END::execute(EvalState& state)
 {
-    // state
+    state.setCurrentLine(-1);
 }
 
 GOTO::GOTO(TokenScanner& scanner)
@@ -108,32 +124,34 @@ GOTO::GOTO(TokenScanner& scanner)
     TokenType type = scanner.getTokenType(token); // check the type of token got
 
     if (type != NUMBER) {
-        error();
+        cout << "INVALID SYNTAX" << endl;
     } else {
         line = stringToInteger(token);
     }
 
     if (scanner.hasMoreTokens()) {
-        error();
+        cout << "SYNTAX ERROR" << endl;
     }
 }
 
 void GOTO::execute(EvalState& state)
 {
     // set the current line to line
+    state.setCurrentLine(line);
 }
 
 IF::IF(TokenScanner& scanner)
 {
     lhs = readE(scanner, 0);
-    sign = scanner.nextToken();
+    sign = scanner.nextToken(); // get the operator for comparison
     rhs = readE(scanner, 0);
-    if (scanner.nextToken != THEN) {
-        error();
+    if (scanner.nextToken() != "THEN") {
+        cout << "SYNTAX ERROR" << endl;
     }
-    line = stringToInteger(scanner.nextToken());
+    string temp = scanner.nextToken();
+    line = stringToInteger(temp);
     if (scanner.hasMoreTokens()) {
-        error();
+        cout << "SYNTAX ERROR" << endl;
     }
 }
 
@@ -149,7 +167,6 @@ void IF::execute(EvalState& state)
     int second = rhs -> eval(state);
 
     if ((sign == "<" && first < second) || (sign == ">" && first > second) || (sign == "=" && first == second)) {
-        // go to line
-        GOTO(line);
+        state.setCurrentLine(line);
     }
 }

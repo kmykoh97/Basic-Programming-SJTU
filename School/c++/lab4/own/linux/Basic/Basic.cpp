@@ -14,9 +14,9 @@
 #include "exp.h"
 #include "parser.h"
 #include "program.h"
+#include "statement.h"
 #include "../StanfordCPPLib/error.h"
 #include "../StanfordCPPLib/tokenscanner.h"
-
 #include "../StanfordCPPLib/simpio.h"
 #include "../StanfordCPPLib/strlib.h"
 using namespace std;
@@ -30,7 +30,7 @@ void processLine(string line, Program & program, EvalState & state);
 int main() {
    EvalState state;
    Program program;
-   cout << "Stub implementation of BASIC" << endl;
+//    cout << "Stub implementation of BASIC" << endl;
    while (true) {
       try {
          processLine(getLine(), program, state);
@@ -56,11 +56,76 @@ int main() {
 
 void processLine(string line, Program & program, EvalState & state) {
    TokenScanner scanner;
+   int lineNumber;
    scanner.ignoreWhitespace();
    scanner.scanNumbers();
    scanner.setInput(line);
-   Expression *exp = parseExp(scanner);
-   int value = exp->eval(state);
-   cout << value << endl;
-   delete exp;
+   string token = scanner.nextToken();
+   TokenType tokenType = scanner.getTokenType(token);
+   
+   if (tokenType == NUMBER) {
+       if (scanner.hasMoreTokens()) {
+           string token2 = scanner.nextToken();
+
+           if (token2 == "IF" || token2 == "REM" || token2 == "PRINT" || token2 == "LET" || token2 == "GOTO" || token2 == "END" || token2 == "INPUT") {
+                string tempLine;
+                scanner.saveToken(token2);
+                scanner.saveToken(token);
+                while (scanner.hasMoreTokens()) {
+                    tempLine += scanner.nextToken() + " ";
+                }
+                tempLine.pop_back();
+                scanner.setInput(line);
+                token = scanner.nextToken();
+                program.addSourceLine(stringToInteger(token), tempLine);
+                Statement* statement = parseStatement(scanner);
+                program.setParsedStatement(stringToInteger(token), statement);
+            } else {
+                cout << "SYNTAX ERROR" << endl;
+                return;
+            }
+
+       } else {
+           program.removeSourceLine(stringToInteger(token));
+       }
+   }
+
+   if (tokenType == WORD) {
+       if (token == "IF" || token == "REM" || token == "PRINT" || token == "LET" || token == "GOTO" || token == "END" || token == "INPUT") {
+            // do required execution of Statement keywords
+            scanner.saveToken(token);
+            Statement* statement = parseStatement(scanner);
+            statement -> execute(state);
+            delete statement;
+       } else if (token == "LIST") {
+           lineNumber = program.getFirstLineNumber();
+           while (lineNumber != -1) {
+               cout << program.getSourceLine(lineNumber) << endl;
+               lineNumber = program.getNextLineNumber(lineNumber);
+           }
+       } else if (token == "RUN") {
+           state.setCurrentLine(program.getFirstLineNumber());
+           lineNumber = state.getCurrentLine();
+           while (lineNumber != -1) {
+               if (program.hasLineNumber(lineNumber) == false) {
+                   cout << "LINE NUMBER ERROR" << endl;
+                   return;
+               }
+
+               Statement* statement = program.getParsedStatement(lineNumber);
+               state.setCurrentLine(program.getNextLineNumber(lineNumber));
+               statement->execute(state);
+               lineNumber = state.getCurrentLine();
+           }
+       } else if (token == "HELP") {
+            cout << "Yet another basic interpreter" << endl;
+       } else if (token == "CLEAR") {
+           program.clear();
+           state.destroy();
+       } else if (token == "QUIT") {
+           exit(0);
+       } else {
+           cout << "invalid command!" << endl;
+       }
+   }
 }

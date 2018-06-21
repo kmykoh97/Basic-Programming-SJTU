@@ -73,9 +73,15 @@ public:
 
    bool isDefined(std::string var);
 
+   void setCurrentLine(int lineNumber);
+
+   int getCurrentLine();
+
+   void destroy();
+
 private:
 
-   Map<std::string,int> symbolTable;
+   Map<std::string, int> symbolTable;
 
 };
 

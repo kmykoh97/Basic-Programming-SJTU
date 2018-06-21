@@ -24,7 +24,8 @@ using namespace std;
 Expression *parseExp(TokenScanner & scanner) {
    Expression *exp = readE(scanner);
    if (scanner.hasMoreTokens()) {
-      error("parseExp: Found extra token: " + scanner.nextToken());
+       cout << "SYNTAX ERROR" << endl;
+    //   error("parseExp: Found extra token: " + scanner.nextToken());
    }
    return exp;
 }
@@ -45,6 +46,12 @@ Expression *readE(TokenScanner & scanner, int prec) {
    string token;
    while (true) {
       token = scanner.nextToken();
+
+      // need to declare this to prevent readE eats up the operators in IF::IF
+      if (token == "=" || token == "<" || token == ">") {
+          break;
+      }
+
       int newPrec = precedence(token);
       if (newPrec <= prec) break;
       Expression *rhs = readE(scanner, newPrec);
@@ -66,10 +73,14 @@ Expression *readT(TokenScanner & scanner) {
    TokenType type = scanner.getTokenType(token);
    if (type == WORD) return new IdentifierExp(token);
    if (type == NUMBER) return new ConstantExp(stringToInteger(token));
-   if (token != "(") error("Illegal term in expression");
+   if (token != "(") {
+    //    error("Illegal term in expression");
+       cout << "SYNTAX ERROR" << endl;
+   }
    Expression *exp = readE(scanner);
    if (scanner.nextToken() != ")") {
-      error("Unbalanced parentheses in expression");
+       cout << "SYNTAX ERROR" << endl;
+    //   error("Unbalanced parentheses in expression");
    }
    return exp;
 }
@@ -86,4 +97,31 @@ int precedence(string token) {
    if (token == "+" || token == "-") return 2;
    if (token == "*" || token == "/") return 3;
    return 0;
+}
+
+// to create object for each statement case
+Statement* parseStatement(TokenScanner& scanner)
+{
+    Statement* statement = NULL;
+    string token = scanner.nextToken();
+    
+    if (token == "REM") {
+        statement = new REM(scanner);
+    } else if (token == "LET") {
+        statement = new LET(scanner);
+    } else if (token == "PRINT") {
+        statement = new PRINT(scanner);
+    } else if (token == "INPUT") {
+        statement = new INPUT(scanner);
+    } else if (token == "END") {
+        statement = new END(scanner);
+    } else if (token == "GOTO") {
+        statement = new GOTO(scanner);
+    } else if (token == "IF") {
+        statement = new IF(scanner);
+    } else {
+        cout << "SYNTAX ERROR" << endl;
+    }
+
+    return statement;
 }
