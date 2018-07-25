@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="Sunburst">
+
+<head>
+  <meta charset="utf-8">
+  <title>Android Distribution</title>
+</head>
+
+<body>
+
+  <!-- header -->
+  <header>
+    <h1>Android Distribution Graphical Presentation</h1> 
+    <p>Interactive Data Visualisation</p>
+    <p>Please select the data file through "Choose File" below. The data file should be on the same directory as this project.</p>
+  </header>
+
+  <!-- main content -->
+  <div ng-controller="MainCtrl as sunburst">
+   
+    <div>
+      <sunburst data="sunburst.data"></sunburst>
+    </div>
+
+    <input id="fileUpload" type="file" accept=".csv,.json" on-read-file="sunburst.getData($fileContent)" />
+    <hr />
+
+  <!-- scripts -->
+  <script src="http://code.angularjs.org/1.3.5/angular.js"></script>
+  <script src="d3.v3.min.js"></script>
+  <script src="app.js"></script>
+  <script src="sunburst.js"></script>
+  <script>
+    d3.select(self.frameElement).style("height", "1000px");
+  </script>
+</body>
+
+</html>
