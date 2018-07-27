@@ -51,7 +51,7 @@ function wordLadder(word1, word2, dictionary)
     }
 
     var count = current.length;
-    if (current[0] != word1 || current[count-1] != word1) {
+    if (current[0] != word1 || current[count-1] != word2) {
         for (var i = 0; i < count; i++) {
             current.pop();
         }
