@@ -48,7 +48,7 @@ int printChoice()
 bool check(const int &number)
 {
     // ensure int is in int range to be representable by 4 bytes
-    if (number > 2000000000 || number < -2000000000) {
+    if (number > 2000000000 || number < -2000000000) { // int range = [-2147483648, 2147483647]
         return false;
     }
 
